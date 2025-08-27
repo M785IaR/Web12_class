@@ -399,3 +399,15 @@ Docker compose build
 docker compose up
 
 最終的に、ブラウザで「http://[awsのパブリックIPv4アドレス]/bbsimagetest.php」と入力し、表示できれば構築完了です。
+
+最終的なディレクトリ構成（EC2）は以下です↓
+dockertest/
+├── Dockerfile
+├── compose.yml
+├── nginx/
+│   └── conf.d/
+│       └── default.conf
+├── public/
+│   └── bbsimagetest.php
+└── .git/ （※git init 後に作成される隠しフォルダ）
+以上です。
