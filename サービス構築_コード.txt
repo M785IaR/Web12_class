@@ -35,7 +35,7 @@ services:
       --max_allowed_packet=4MB
 volumes:
   mysql:
-  image
+  image:
 
 
 
