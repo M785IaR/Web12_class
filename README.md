@@ -86,6 +86,9 @@ volumes:
 
 ESCを押し、:wqで保存する
 
+//イメージをビルドする
+Docker compose build
+
 //起動する
 docker compose up
 
@@ -227,7 +230,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 ESCを押し、:wqで保存する
 
-//Dockerfileの中身を書き換える
+// MySQLコンテナに入る
+docker exec -it mysql mysql -u root example_db
+
+// 以下のSQLでテーブルを作成する（SQL実行画面にて）
+CREATE TABLE bbs_entries (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  body TEXT NOT NULL,
+  image_filename TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+//Dockerfileの中身を書き換える(dockertestの下でvim Dockerfile)
+
 FROM php:8.4-fpm-alpine AS php
 
 RUN docker-php-ext-install pdo_mysql
@@ -238,11 +253,15 @@ RUN echo -e "post_max_size = 5M\nupload_max_filesize = 5M" >> ${PHP_INI_DIR}/php
 
 ESCを押し、:wqで保存する
 
+//イメージをビルドする
+Docker compose build
+
+
 //起動する
 docker compose up
 
 //起動したらブラウザで作った.phpファイルにアクセスして確認
-http://IPアドレス/bbsimagetest.php
+http://パブリックIPアドレス/bbsimagetest.php
 
 //もう一度Docker Composeを停止させる
 →ログが流れているところでCtrl+Cを押す
@@ -372,4 +391,10 @@ To github.com:M785IaR/Web12_class.git
 3.作成完了
 →リポジトリ全体の説明を書くために作成しておく
 
-http://[awsのパブリックIPv4アドレス]/bbsimagetest.php
+//イメージをビルドする
+Docker compose build
+
+//起動する
+docker compose up
+
+最終的に、ブラウザで「http://[awsのパブリックIPv4アドレス]/bbsimagetest.php」と入力し、表示できれば構築完了です。
